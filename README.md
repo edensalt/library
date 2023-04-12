@@ -1,4 +1,4 @@
-# Project: <a href="#">Library</a>
+# Project: Library 🚧 Currently under construction 🚧
 
 Example library for the <a href="https://www.theodinproject.com/lessons/node-path-javascript-library">Odin Project: JavaScript course</a>
 
