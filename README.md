@@ -6,6 +6,6 @@ Example library for the <a href="https://www.theodinproject.com/lessons/node-pat
 
 - Objects and object constructors
 - DOM manipulation and JS event listeners
-- JS arrays and for loops
+- JS arrays (sorting) and for loops
 - Forms
 - CSS grid

@@ -54,7 +54,7 @@ addBookToLibrary(
 );
 addBookToLibrary('A Game of Thrones', 'George R.R. Martin', 1088, 'No');
 
-// Add new books
+// ADD NEW BOOKS
 
 const newBookButton = document.getElementById('submit-button');
 
@@ -125,3 +125,45 @@ list.addEventListener('click', (e) => {
     createBookCards(myLibrary);
   }
 });
+
+// Title sort
+
+const titleSort = myLibrary.sort((a, b) => (a.title > b.title ? 1 : -1));
+
+console.table(titleSort);
+
+// Author first name sort
+
+const authorFirstSort = myLibrary.sort((a, b) => (a.author > b.author ? 1 : -1));
+
+console.table(authorFirstSort);
+
+// Author last name sort
+
+const authorLastSort = myLibrary.map((book) => book.author.split(' ').pop());
+authorLastSort.sort();
+console.table(authorLastSort);
+
+// Read sort
+
+const readYes = myLibrary.filter((book) => (book.read === 'Yes'));
+
+console.table(readYes);
+
+// Pages sort
+
+const pagesSort = myLibrary.sort((a, b) => (a.pages > b.pages ? 1 : -1));
+
+console.table(pagesSort);
+
+// Total pages
+
+const totalPages = myLibrary.reduce((total, book) => total + (book.pages), 0);
+
+console.log(totalPages);
+
+// Total pages read
+
+const totalPagesRead = readYes.reduce((total, book) => total + (book.pages), 0);
+
+console.log(totalPagesRead);
