@@ -71,3 +71,21 @@ for (i = 0; i < myLibrary.length; i++) {
   bookCardRead.textContent = `Book read? ${myLibrary[i].read}.`;
   bookCard.appendChild(bookCardRead);
 }
+
+// Add book pop-up
+
+const addBookBtn = document.getElementById('add-book-btn');
+
+addBookBtn.addEventListener('click', () => {
+  const bookPopup = document.getElementById('add-book-popup');
+  bookPopup.style.display = 'block';
+});
+
+// Remove book pop-up
+
+const closePopup = document.getElementById('close-popup');
+
+closePopup.addEventListener('click', () => {
+  const bookPopup = document.getElementById('add-book-popup');
+  bookPopup.style.display = 'none';
+});
