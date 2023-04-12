@@ -65,7 +65,8 @@ newBookButton.addEventListener('click', (e) => {
 
   const title = document.getElementById('title').value;
   const author = document.getElementById('author').value;
-  const pages = document.getElementById('pages').value;
+  const pagesString = document.getElementById('pages').value;
+  const pages = parseFloat(pagesString);
   const readStatus = document.querySelector('input[name="read"]:checked').value;
 
   // Add book to library
@@ -130,38 +131,30 @@ list.addEventListener('click', (e) => {
 
 // Title sort
 
-const titleSort = myLibrary.sort((a, b) => (a.title > b.title ? 1 : -1));
-const titleSortLibrary = [...titleSort];
-
-// Title sort button
-
 const titleSortBtn = document.getElementById('title-sort');
 
 titleSortBtn.addEventListener('click', () => {
+  myLibrary.sort((a, b) => (a.title > b.title ? 1 : -1));
   // Remove current grid
   while (list.firstChild) {
     list.removeChild(list.firstChild);
   }
   // Write new grid
-  createBookCards(titleSortLibrary);
+  createBookCards(myLibrary);
 });
 
 // Author first name sort
 
-const authorFirstSort = myLibrary.sort((a, b) => (a.author > b.author ? 1 : -1));
-const authorFirstSortLibrary = [...authorFirstSort];
-
-// Author first sort button
-
 const authorFirstSortBtn = document.getElementById('author-first-sort');
 
 authorFirstSortBtn.addEventListener('click', () => {
+  myLibrary.sort((a, b) => (a.author > b.author ? 1 : -1));
   // Remove current grid
   while (list.firstChild) {
     list.removeChild(list.firstChild);
   }
   // Write new grid
-  createBookCards(authorFirstSortLibrary);
+  createBookCards(myLibrary);
 });
 
 // Author last name sort
@@ -169,16 +162,13 @@ authorFirstSortBtn.addEventListener('click', () => {
 const authorLastSort = myLibrary.map((book) => book.author.split(' ').pop());
 authorLastSort.sort();
 
-// Read sort
-
-const readYes = myLibrary.filter((book) => (book.read === 'Yes'));
-const readSortLibrary = [...readYes];
-
-// Read sort button
+// Read sort - a little different since we don't want to change original library
 
 const readSortBtn = document.getElementById('read-sort');
 
 readSortBtn.addEventListener('click', () => {
+  const readYes = myLibrary.filter((book) => (book.read === 'Yes'));
+  const readSortLibrary = [...readYes];
   // Remove current grid
   while (list.firstChild) {
     list.removeChild(list.firstChild);
@@ -189,20 +179,16 @@ readSortBtn.addEventListener('click', () => {
 
 // Pages sort
 
-const pagesSort = myLibrary.sort((a, b) => (a.pages > b.pages ? 1 : -1));
-const pagesSortLibrary = [...pagesSort];
-
-// Pages sort button
-
 const pagesSortBtn = document.getElementById('pages-sort');
 
 pagesSortBtn.addEventListener('click', () => {
+  myLibrary.sort((a, b) => (a.pages > b.pages ? 1 : -1));
   // Remove current grid
   while (list.firstChild) {
     list.removeChild(list.firstChild);
   }
   // Write new grid
-  createBookCards(pagesSortLibrary);
+  createBookCards(myLibrary);
 });
 
 // Total pages
@@ -224,7 +210,8 @@ readCountBtn.addEventListener('click', () => {
   while (pagesReadFooter.firstChild) {
     pagesReadFooter.removeChild(pagesReadFooter.firstChild);
   }
-
+  const readYes = myLibrary.filter((book) => (book.read === 'Yes'));
+  const readSortLibrary = [...readYes];
   const totalPagesRead = readSortLibrary.reduce((total, book) => total + (book.pages), 0);
 
   // Write new grid
