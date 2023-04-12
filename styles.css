@@ -1,0 +1,18 @@
+.body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 5fr;
+    padding: 20px;
+}
+
+.header {
+    grid-column-start: span 2;
+    justify-self: center;
+    align-self: center;
+}
+
+.book-card {
+    border: solid 1px black;
+    font-size: 1rem;
+    font-weight: 100;
+}
