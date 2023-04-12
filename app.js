@@ -45,7 +45,7 @@ function addBookToLibrary(title, author, pages, read) {
 
 // Define static books
 
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, 'No');
+addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, 'Yes');
 addBookToLibrary(
   "Harry Potter and the Sorcerer's Stone",
   'J.K. Rowling',
@@ -87,6 +87,8 @@ newBookButton.addEventListener('click', (e) => {
 
 createBookCards(myLibrary);
 
+// NEW BOOK POP-UP BOX
+
 // Add book pop-up
 
 const addBookBtn = document.getElementById('add-book-btn');
@@ -105,65 +107,128 @@ closePopup.addEventListener('click', () => {
   bookPopup.style.display = 'none';
 });
 
-// Remove book from library
+// REMOVE BOOK
 
 list.addEventListener('click', (e) => {
   if (e.target && e.target.classList.contains('remove-book')) {
     const index = Array.from(
       e.target.parentElement.parentElement.children,
     ).indexOf(e.target.parentElement);
-    console.log(index);
     myLibrary.splice(index, 1);
-    // Remove current grid
 
+    // Remove current grid
     while (list.firstChild) {
       list.removeChild(list.firstChild);
     }
 
     // Write new grid
-
     createBookCards(myLibrary);
   }
 });
 
+// BOOK FILTERS
+
 // Title sort
 
 const titleSort = myLibrary.sort((a, b) => (a.title > b.title ? 1 : -1));
+const titleSortLibrary = [...titleSort];
 
-console.table(titleSort);
+// Title sort button
+
+const titleSortBtn = document.getElementById('title-sort');
+
+titleSortBtn.addEventListener('click', () => {
+  // Remove current grid
+  while (list.firstChild) {
+    list.removeChild(list.firstChild);
+  }
+  // Write new grid
+  createBookCards(titleSortLibrary);
+});
 
 // Author first name sort
 
 const authorFirstSort = myLibrary.sort((a, b) => (a.author > b.author ? 1 : -1));
+const authorFirstSortLibrary = [...authorFirstSort];
 
-console.table(authorFirstSort);
+// Author first sort button
+
+const authorFirstSortBtn = document.getElementById('author-first-sort');
+
+authorFirstSortBtn.addEventListener('click', () => {
+  // Remove current grid
+  while (list.firstChild) {
+    list.removeChild(list.firstChild);
+  }
+  // Write new grid
+  createBookCards(authorFirstSortLibrary);
+});
 
 // Author last name sort
 
 const authorLastSort = myLibrary.map((book) => book.author.split(' ').pop());
 authorLastSort.sort();
-console.table(authorLastSort);
 
 // Read sort
 
 const readYes = myLibrary.filter((book) => (book.read === 'Yes'));
+const readSortLibrary = [...readYes];
 
-console.table(readYes);
+// Read sort button
+
+const readSortBtn = document.getElementById('read-sort');
+
+readSortBtn.addEventListener('click', () => {
+  // Remove current grid
+  while (list.firstChild) {
+    list.removeChild(list.firstChild);
+  }
+  // Write new grid
+  createBookCards(readSortLibrary);
+});
 
 // Pages sort
 
 const pagesSort = myLibrary.sort((a, b) => (a.pages > b.pages ? 1 : -1));
+const pagesSortLibrary = [...pagesSort];
 
-console.table(pagesSort);
+// Pages sort button
+
+const pagesSortBtn = document.getElementById('pages-sort');
+
+pagesSortBtn.addEventListener('click', () => {
+  // Remove current grid
+  while (list.firstChild) {
+    list.removeChild(list.firstChild);
+  }
+  // Write new grid
+  createBookCards(pagesSortLibrary);
+});
 
 // Total pages
 
-const totalPages = myLibrary.reduce((total, book) => total + (book.pages), 0);
-
-console.log(totalPages);
+// const totalPages = myLibrary.reduce((total, book) => total + (book.pages), 0);
 
 // Total pages read
 
-const totalPagesRead = readYes.reduce((total, book) => total + (book.pages), 0);
+// const pagesReadFooter = document.getElementById('pages-read-total');
+// const pagesReadNumber = document.createElement('p');
+// pagesReadNumber.textContent = `You have read a total of ${totalPagesRead} pages!`;
+// pagesReadFooter.appendChild(pagesReadNumber);
 
-console.log(totalPagesRead);
+const readCountBtn = document.getElementById('read-count');
+const pagesReadFooter = document.getElementById('pages-read-total');
+
+readCountBtn.addEventListener('click', () => {
+  // Remove current grid
+  while (pagesReadFooter.firstChild) {
+    pagesReadFooter.removeChild(pagesReadFooter.firstChild);
+  }
+
+  const totalPagesRead = readSortLibrary.reduce((total, book) => total + (book.pages), 0);
+
+  // Write new grid
+  const pagesReadNumber = document.createElement('p');
+  pagesReadNumber.textContent = `You have read a total of ${totalPagesRead} pages!`;
+  pagesReadFooter.appendChild(pagesReadNumber);
+});
