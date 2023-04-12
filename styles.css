@@ -13,6 +13,10 @@
   align-self: center;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 /* Add book button */
 
 
@@ -32,14 +36,16 @@
   border-radius: 20px;
   padding: 20px;
   box-shadow: 2px 2px 2px 2px;
+  z-index: 1;
 }
 
 #close-popup {
     position: absolute;
-    top: 3%;
-    right: 5%;
+    top: 0;
+    right: 10px;
     font-size: 2rem;
     font-family: monospace;
+    padding: 5px;
 }
 
 #close-popup:hover {
@@ -62,4 +68,18 @@
   border: solid 1px black;
   border-radius: 20px;
   padding: 10px;
+  position: relative;
+}
+
+.remove-book {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 2rem;
+    font-family: monospace;
+    padding: 5px;
+}
+
+.remove-book:hover {
+    cursor: pointer;
 }

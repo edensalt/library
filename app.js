@@ -1,6 +1,33 @@
 // Establish the library array
 
 const myLibrary = [];
+const list = document.getElementById('book-grid');
+
+// Library card grid display function
+
+function createBookCards(myLibrary) {
+  for (i = 0; i < myLibrary.length; i++) {
+    const bookCard = document.createElement('div');
+    bookCard.classList.add('book-card');
+    list.appendChild(bookCard);
+    const removeBookBtn = document.createElement('div');
+    removeBookBtn.textContent = 'x';
+    removeBookBtn.classList.add('remove-book');
+    bookCard.appendChild(removeBookBtn);
+    const bookCardTitle = document.createElement('h3');
+    bookCardTitle.textContent = myLibrary[i].title;
+    bookCard.appendChild(bookCardTitle);
+    const bookCardAuthor = document.createElement('h4');
+    bookCardAuthor.textContent = myLibrary[i].author;
+    bookCard.appendChild(bookCardAuthor);
+    const bookCardPages = document.createElement('p');
+    bookCardPages.textContent = `${myLibrary[i].pages} pages`;
+    bookCard.appendChild(bookCardPages);
+    const bookCardRead = document.createElement('p');
+    bookCardRead.textContent = `Book read? ${myLibrary[i].read}.`;
+    bookCard.appendChild(bookCardRead);
+  }
+}
 
 // Define the object constructor for each book
 
@@ -16,10 +43,15 @@ function addBookToLibrary(title, author, pages, read) {
   myLibrary.push(newBook);
 }
 
-// Define books
+// Define static books
 
 addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, 'No');
-addBookToLibrary('Harry Potter and the Sorcerer\'s Stone', 'J.K. Rowling', 309, 'Yes');
+addBookToLibrary(
+  "Harry Potter and the Sorcerer's Stone",
+  'J.K. Rowling',
+  309,
+  'Yes',
+);
 addBookToLibrary('A Game of Thrones', 'George R.R. Martin', 1088, 'No');
 
 // Add new books
@@ -40,37 +72,20 @@ newBookButton.addEventListener('click', (e) => {
 
   addBookToLibrary(title, author, pages, readStatus);
 
-  console.log(myLibrary);
+  // Remove current grid
 
-  // Add new book to dom
+  while (list.firstChild) {
+    list.removeChild(list.firstChild);
+  }
 
-  const list = document.getElementById('book-grid');
-  const bookCard = document.createElement('div');
-  bookCard.classList.add('book-card');
-  bookCard.textContent = `${title} by ${author} is ${pages} pages long. Have you read this book? ${readStatus}`;
-  list.appendChild(bookCard);
+  // Write new grid
+
+  createBookCards(myLibrary);
 });
 
 // Display initial list of books at first load of site
 
-for (i = 0; i < myLibrary.length; i++) {
-  const list = document.getElementById('book-grid');
-  const bookCard = document.createElement('div');
-  bookCard.classList.add('book-card');
-  list.appendChild(bookCard);
-  const bookCardTitle = document.createElement('h3');
-  bookCardTitle.textContent = myLibrary[i].title;
-  bookCard.appendChild(bookCardTitle);
-  const bookCardAuthor = document.createElement('h4');
-  bookCardAuthor.textContent = myLibrary[i].author;
-  bookCard.appendChild(bookCardAuthor);
-  const bookCardPages = document.createElement('p');
-  bookCardPages.textContent = `${myLibrary[i].pages} pages`;
-  bookCard.appendChild(bookCardPages);
-  const bookCardRead = document.createElement('p');
-  bookCardRead.textContent = `Book read? ${myLibrary[i].read}.`;
-  bookCard.appendChild(bookCardRead);
-}
+createBookCards(myLibrary);
 
 // Add book pop-up
 
@@ -88,4 +103,25 @@ const closePopup = document.getElementById('close-popup');
 closePopup.addEventListener('click', () => {
   const bookPopup = document.getElementById('add-book-popup');
   bookPopup.style.display = 'none';
+});
+
+// Remove book from library
+
+list.addEventListener('click', (e) => {
+  if (e.target && e.target.classList.contains('remove-book')) {
+    const index = Array.from(
+      e.target.parentElement.parentElement.children,
+    ).indexOf(e.target.parentElement);
+    console.log(index);
+    myLibrary.splice(index, 1);
+    // Remove current grid
+
+    while (list.firstChild) {
+      list.removeChild(list.firstChild);
+    }
+
+    // Write new grid
+
+    createBookCards(myLibrary);
+  }
 });

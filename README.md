@@ -5,7 +5,7 @@ Example library for the <a href="https://www.theodinproject.com/lessons/node-pat
 ## Skills demonstrated
 
 - Objects and object constructors
-- DOM manipulation
+- DOM manipulation and JS event listeners
+- JS arrays and for loops
 - Forms
-- For loops
 - CSS grid
