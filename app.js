@@ -1,31 +1,76 @@
-// Establish the library array
-
 const myLibrary = [];
 const list = document.getElementById('book-grid');
 
-// Library card grid display function
+// LIBRARY CARD COMPONENTS
 
-function createBookCards(myLibrary) {
+// New card
+function newCard() {
+  const bookCard = document.createElement('div');
+  bookCard.classList.add('book-card');
+  list.appendChild(bookCard);
+  return bookCard;
+}
+
+// Remove card button
+function removeBook(bookCard) {
+  const removeBookBtn = document.createElement('div');
+  removeBookBtn.textContent = 'x';
+  removeBookBtn.classList.add('remove-book');
+  bookCard.appendChild(removeBookBtn);
+}
+
+// Book title
+
+function addTitle(bookCard) {
+  const bookCardTitle = document.createElement('h3');
+  bookCardTitle.textContent = myLibrary[i].title;
+  bookCard.appendChild(bookCardTitle);
+}
+
+// Book author
+
+function addAuthor(bookCard) {
+  const bookCardAuthor = document.createElement('h4');
+  bookCardAuthor.textContent = myLibrary[i].author;
+  bookCard.appendChild(bookCardAuthor);
+}
+
+// Book pages
+
+function addPages(bookCard) {
+  const bookCardPages = document.createElement('p');
+  bookCardPages.textContent = `${myLibrary[i].pages} pages`;
+  bookCard.appendChild(bookCardPages);
+}
+
+// Book read paragraph
+
+function bookReadPara(bookCard) {
+  const bookCardRead = document.createElement('p');
+  bookCardRead.textContent = `Book read? ${myLibrary[i].read}.`;
+  bookCard.appendChild(bookCardRead);
+}
+
+// CREATE GRID OF CARDS
+
+function createBookCards() {
   for (i = 0; i < myLibrary.length; i++) {
-    const bookCard = document.createElement('div');
-    bookCard.classList.add('book-card');
-    list.appendChild(bookCard);
-    const removeBookBtn = document.createElement('div');
-    removeBookBtn.textContent = 'x';
-    removeBookBtn.classList.add('remove-book');
-    bookCard.appendChild(removeBookBtn);
-    const bookCardTitle = document.createElement('h3');
-    bookCardTitle.textContent = myLibrary[i].title;
-    bookCard.appendChild(bookCardTitle);
-    const bookCardAuthor = document.createElement('h4');
-    bookCardAuthor.textContent = myLibrary[i].author;
-    bookCard.appendChild(bookCardAuthor);
-    const bookCardPages = document.createElement('p');
-    bookCardPages.textContent = `${myLibrary[i].pages} pages`;
-    bookCard.appendChild(bookCardPages);
-    const bookCardRead = document.createElement('p');
-    bookCardRead.textContent = `Book read? ${myLibrary[i].read}.`;
-    bookCard.appendChild(bookCardRead);
+    const bookCard = newCard();
+    removeBook(bookCard);
+    addTitle(bookCard);
+    addAuthor(bookCard);
+    addPages(bookCard);
+    bookReadPara(bookCard);
+    // const bookCardReadCheckbox = document.createElement('input');
+    // bookCardReadCheckbox.setAttribute('type', 'checkbox');
+    // bookCardReadCheckbox.setAttribute('name', 'read');
+    // bookCardReadCheckbox.setAttribute('value', 'No');
+    // bookCardReadCheckbox.setAttribute('id', 'read-no');
+    // bookCardReadCheckbox.appendChild(bookCardRead);
+    // const bookCardReadLabel = document.createElement('label');
+    // bookCardReadLabel.htmlFor = 'read';
+    // bookCardReadLabel.textContent = 'Book read?';
+    // bookCardReadLabel.appendChild(bookCardReadCheckbox);
   }
 }
 
