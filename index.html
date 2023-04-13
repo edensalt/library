@@ -36,11 +36,14 @@
                         <input type="number" name="pages" id="pages">
                     </div>
                     <div class="read">
-                        Read?
-                        <input type="radio" id="read-yes" name="read" value='true'>
-                        <label for="read-yes">I've read this book</label>
-                        <input type="radio" id="read-no" name="read" value='false' checked>
-                        <label for="read-no">I have not read this book</label>
+                        <div class="read-yes">
+                            <input type="radio" id="read-yes" name="read" value='true'>
+                            <label for="read-yes">I have read this book</label>
+                        </div>
+                        <div class="read-no">
+                            <input type="radio" id="read-no" name="read" value='false' checked>
+                            <label for="read-no">I have not read this book</label>
+                        </div>
                     </div>
                 </div>
                 <button id="submit-button" type="submit">Add book</button>

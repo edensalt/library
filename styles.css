@@ -64,6 +64,11 @@ right: 20px;
     cursor: pointer;
 }
 
+.book-input > div {
+  position: relative;
+  margin-bottom: 15px;
+}
+
 /* Filter buttons */
 
 .filters {
@@ -163,6 +168,8 @@ input[type="checkbox"]:checked::before {
 }
 
 button:hover,
-input[type="checkbox"]:hover {
+input[type="checkbox"]:hover,
+button:active,
+input[type="checkbox"]:active  {
   cursor: pointer;
 }
