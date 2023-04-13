@@ -11,4 +11,5 @@ Example library for the <a href="https://www.theodinproject.com/lessons/node-pat
 - CSS grid
 
 ## Updates 
-- Need to actually update the library data when a book is removed, not just visually remove it from the dom. I know this isn't working because when I filter the books, the removed ones come back.
+- Clear form when submitted
+- Add option to change read to yes or no

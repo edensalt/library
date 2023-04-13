@@ -167,7 +167,7 @@ authorLastSort.sort();
 const readSortBtn = document.getElementById('read-sort');
 
 readSortBtn.addEventListener('click', () => {
-  const readYes = myLibrary.filter((book) => (book.read === 'Yes'));
+  const readYes = myLibrary.filter((book) => book.read === 'Yes');
   const readSortLibrary = [...readYes];
   // Remove current grid
   while (list.firstChild) {
@@ -193,15 +193,6 @@ pagesSortBtn.addEventListener('click', () => {
 
 // Total pages
 
-// const totalPages = myLibrary.reduce((total, book) => total + (book.pages), 0);
-
-// Total pages read
-
-// const pagesReadFooter = document.getElementById('pages-read-total');
-// const pagesReadNumber = document.createElement('p');
-// pagesReadNumber.textContent = `You have read a total of ${totalPagesRead} pages!`;
-// pagesReadFooter.appendChild(pagesReadNumber);
-
 const readCountBtn = document.getElementById('read-count');
 const pagesReadFooter = document.getElementById('pages-read-total');
 
@@ -210,9 +201,12 @@ readCountBtn.addEventListener('click', () => {
   while (pagesReadFooter.firstChild) {
     pagesReadFooter.removeChild(pagesReadFooter.firstChild);
   }
-  const readYes = myLibrary.filter((book) => (book.read === 'Yes'));
+  const readYes = myLibrary.filter((book) => book.read === 'Yes');
   const readSortLibrary = [...readYes];
-  const totalPagesRead = readSortLibrary.reduce((total, book) => total + (book.pages), 0);
+  const totalPagesRead = readSortLibrary.reduce(
+    (total, book) => total + book.pages,
+    0,
+  );
 
   // Write new grid
   const pagesReadNumber = document.createElement('p');
