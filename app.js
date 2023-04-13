@@ -1,5 +1,10 @@
 const myLibrary = [];
 const list = document.getElementById('book-grid');
+const bookPopup = document.getElementById('add-book-popup');
+const form = document.querySelector('form');
+const newBookButton = document.getElementById('submit-button');
+const openPopup = document.getElementById('add-book-btn');
+const closePopup = document.getElementById('close-popup');
 
 // LIBRARY CARD COMPONENTS
 
@@ -135,34 +140,38 @@ addBookToLibrary(
 
 // ADD NEW BOOKS
 
-const newBookButton = document.getElementById('submit-button');
+function checkRadioRead() {
+  const radioButtons = document.querySelectorAll('input[name="read"]');
+  let selectedValue = null;
+  radioButtons.forEach((radioButton) => {
+    if (radioButton.checked) {
+      selectedValue = radioButton.value === 'true';
+    }
+  });
+  return selectedValue;
+}
 
 newBookButton.addEventListener('click', (e) => {
   e.preventDefault();
-
-  // Get object prop values
   const title = document.getElementById('title').value;
   const author = document.getElementById('author').value;
   const pagesString = document.getElementById('pages').value;
   const pages = parseFloat(pagesString);
-  const readStatus = document.querySelector('input[name="read"]:checked').value;
+  const readStatus = checkRadioRead();
   addBookToLibrary(title, author, pages, readStatus);
+  form.reset();
   gridRefresh(list);
 });
 
 // NEW BOOK POP-UP BOX
 
 // Add book pop-up
-const addBookBtn = document.getElementById('add-book-btn');
-addBookBtn.addEventListener('click', () => {
-  const bookPopup = document.getElementById('add-book-popup');
+openPopup.addEventListener('click', () => {
   bookPopup.style.display = 'block';
 });
 
 // Remove book pop-up
-const closePopup = document.getElementById('close-popup');
 closePopup.addEventListener('click', () => {
-  const bookPopup = document.getElementById('add-book-popup');
   bookPopup.style.display = 'none';
 });
 

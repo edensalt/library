@@ -14,4 +14,4 @@ Example library for the <a href="https://www.theodinproject.com/lessons/node-pat
 - Clear form when submitted
 - Add option to change read to yes or no
 - Update read filter to read, not read, or all
-- SORT BY PAGES IS WORKING FOR NEW BOOKS, BUT SORT BY TITLE ISN'T
+- SORT BY PAGES IS WORKING FOR NEW BOOKS, BUT SORT BY TITLE ISN'T. That's because it's case sensitive. Need to get to all lowercase first
