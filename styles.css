@@ -83,3 +83,9 @@ button:hover {
 .remove-book:hover {
     cursor: pointer;
 }
+
+/* Checkbox */
+
+.read-div {
+  display: flex;
+}

@@ -20,7 +20,6 @@ function removeBook(bookCard) {
 }
 
 // Book title
-
 function addTitle(book, bookCard) {
   const bookCardTitle = document.createElement('h3');
   bookCardTitle.textContent = book.title;
@@ -28,7 +27,6 @@ function addTitle(book, bookCard) {
 }
 
 // Book author
-
 function addAuthor(book, bookCard) {
   const bookCardAuthor = document.createElement('h4');
   bookCardAuthor.textContent = book.author;
@@ -36,29 +34,19 @@ function addAuthor(book, bookCard) {
 }
 
 // Book pages
-
 function addPages(book, bookCard) {
   const bookCardPages = document.createElement('p');
   bookCardPages.textContent = `${book.pages} pages`;
   bookCard.appendChild(bookCardPages);
 }
 
-// Book read label
-
-// function addReadLabel(readCheckbox) {
-//   const readLabel = document.createElement('label');
-//   readLabel.setAttribute('for', 'read-status');
-//   readLabel.textContent('Read status');
-//   readCheckbox.appendChild(readLabel);
-// }
-
 // Book read checkbox
-
 function addReadCheck(book, readDiv) {
   const readCheckbox = document.createElement('input');
   readCheckbox.type = 'checkbox';
   readCheckbox.name = 'read-status';
   readCheckbox.id = 'read-status';
+  readCheckbox.classList.add('read-checkbox');
   readCheckbox.checked = book.read;
   readDiv.appendChild(readCheckbox);
 }
@@ -71,7 +59,6 @@ function readText(book) {
 }
 
 // Book read label
-
 function addReadLabel(readDiv, book) {
   const readLabel = document.createElement('label');
   readLabel.setAttribute('for', 'read-status');
@@ -80,10 +67,9 @@ function addReadLabel(readDiv, book) {
 }
 
 // Book read div
-
 function addReadDiv(book, bookCard) {
   const readDiv = document.createElement('div');
-  // bookCard.classList.add('read-div');
+  readDiv.classList.add('read-div');
   bookCard.appendChild(readDiv);
   addReadCheck(book, readDiv);
   addReadLabel(readDiv, book);
@@ -167,18 +153,14 @@ newBookButton.addEventListener('click', (e) => {
 // NEW BOOK POP-UP BOX
 
 // Add book pop-up
-
 const addBookBtn = document.getElementById('add-book-btn');
-
 addBookBtn.addEventListener('click', () => {
   const bookPopup = document.getElementById('add-book-popup');
   bookPopup.style.display = 'block';
 });
 
 // Remove book pop-up
-
 const closePopup = document.getElementById('close-popup');
-
 closePopup.addEventListener('click', () => {
   const bookPopup = document.getElementById('add-book-popup');
   bookPopup.style.display = 'none';
@@ -192,6 +174,18 @@ list.addEventListener('click', (e) => {
       e.target.parentElement.parentElement.children,
     ).indexOf(e.target.parentElement);
     myLibrary.splice(index, 1);
+    gridRefresh(list);
+  }
+});
+
+// UPDATE READ STATUS
+
+list.addEventListener('click', (e) => {
+  if (e.target && e.target.classList.contains('read-checkbox')) {
+    const index = Array.from(
+      e.target.parentElement.parentElement.parentElement.children,
+    ).indexOf(e.target.parentElement.parentElement);
+    myLibrary[index].read = !myLibrary[index].read;
     gridRefresh(list);
   }
 });
