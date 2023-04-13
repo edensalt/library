@@ -255,7 +255,7 @@ readCountBtn.addEventListener('click', () => {
   while (pagesReadFooter.firstChild) {
     pagesReadFooter.removeChild(pagesReadFooter.firstChild);
   }
-  const readYes = myLibrary.filter((book) => book.read === 'true');
+  const readYes = myLibrary.filter((book) => book.read);
   const readSortLibrary = [...readYes];
   const totalPagesRead = readSortLibrary.reduce(
     (total, book) => total + book.pages,
