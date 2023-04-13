@@ -21,57 +21,93 @@ function removeBook(bookCard) {
 
 // Book title
 
-function addTitle(bookCard) {
+function addTitle(book, bookCard) {
   const bookCardTitle = document.createElement('h3');
-  bookCardTitle.textContent = myLibrary[i].title;
+  bookCardTitle.textContent = book.title;
   bookCard.appendChild(bookCardTitle);
 }
 
 // Book author
 
-function addAuthor(bookCard) {
+function addAuthor(book, bookCard) {
   const bookCardAuthor = document.createElement('h4');
-  bookCardAuthor.textContent = myLibrary[i].author;
+  bookCardAuthor.textContent = book.author;
   bookCard.appendChild(bookCardAuthor);
 }
 
 // Book pages
 
-function addPages(bookCard) {
+function addPages(book, bookCard) {
   const bookCardPages = document.createElement('p');
-  bookCardPages.textContent = `${myLibrary[i].pages} pages`;
+  bookCardPages.textContent = `${book.pages} pages`;
   bookCard.appendChild(bookCardPages);
 }
 
-// Book read paragraph
+// Book read label
 
-function bookReadPara(bookCard) {
-  const bookCardRead = document.createElement('p');
-  bookCardRead.textContent = `Book read? ${myLibrary[i].read}.`;
-  bookCard.appendChild(bookCardRead);
+// function addReadLabel(readCheckbox) {
+//   const readLabel = document.createElement('label');
+//   readLabel.setAttribute('for', 'read-status');
+//   readLabel.textContent('Read status');
+//   readCheckbox.appendChild(readLabel);
+// }
+
+// Book read checkbox
+
+function addReadCheck(book, readDiv) {
+  const readCheckbox = document.createElement('input');
+  readCheckbox.type = 'checkbox';
+  readCheckbox.name = 'read-status';
+  readCheckbox.id = 'read-status';
+  readCheckbox.checked = book.read;
+  readDiv.appendChild(readCheckbox);
+}
+
+// Check read status
+function readText(book) {
+  if (book.read === true) {
+    return 'I have read this book';
+  } return 'I have not read this book';
+}
+
+// Book read label
+
+function addReadLabel(readDiv, book) {
+  const readLabel = document.createElement('label');
+  readLabel.setAttribute('for', 'read-status');
+  readLabel.appendChild(document.createTextNode(readText(book)));
+  readDiv.appendChild(readLabel);
+}
+
+// Book read div
+
+function addReadDiv(book, bookCard) {
+  const readDiv = document.createElement('div');
+  // bookCard.classList.add('read-div');
+  bookCard.appendChild(readDiv);
+  addReadCheck(book, readDiv);
+  addReadLabel(readDiv, book);
 }
 
 // CREATE GRID OF CARDS
 
 function createBookCards() {
-  for (i = 0; i < myLibrary.length; i++) {
+  myLibrary.forEach((book) => {
     const bookCard = newCard();
     removeBook(bookCard);
-    addTitle(bookCard);
-    addAuthor(bookCard);
-    addPages(bookCard);
-    bookReadPara(bookCard);
-    // const bookCardReadCheckbox = document.createElement('input');
-    // bookCardReadCheckbox.setAttribute('type', 'checkbox');
-    // bookCardReadCheckbox.setAttribute('name', 'read');
-    // bookCardReadCheckbox.setAttribute('value', 'No');
-    // bookCardReadCheckbox.setAttribute('id', 'read-no');
-    // bookCardReadCheckbox.appendChild(bookCardRead);
-    // const bookCardReadLabel = document.createElement('label');
-    // bookCardReadLabel.htmlFor = 'read';
-    // bookCardReadLabel.textContent = 'Book read?';
-    // bookCardReadLabel.appendChild(bookCardReadCheckbox);
+    addTitle(book, bookCard);
+    addAuthor(book, bookCard);
+    addPages(book, bookCard);
+    addReadDiv(book, bookCard);
+  });
+}
+
+// GRID REFRESH
+function gridRefresh() {
+  while (list.firstChild) {
+    list.removeChild(list.firstChild);
   }
+  createBookCards(myLibrary);
 }
 
 // Define the object constructor for each book
@@ -83,6 +119,8 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
+// Add a book function
+
 function addBookToLibrary(title, author, pages, read) {
   const newBook = new Book(title, author, pages, read);
   myLibrary.push(newBook);
@@ -90,14 +128,24 @@ function addBookToLibrary(title, author, pages, read) {
 
 // Define static books
 
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, 'Yes');
+addBookToLibrary(
+  'The Hobbit',
+  'J.R.R. Tolkien',
+  295,
+  true,
+);
 addBookToLibrary(
   "Harry Potter and the Sorcerer's Stone",
   'J.K. Rowling',
   309,
-  'Yes',
+  true,
 );
-addBookToLibrary('A Game of Thrones', 'George R.R. Martin', 1088, 'No');
+addBookToLibrary(
+  'A Game of Thrones',
+  'George R.R. Martin',
+  1088,
+  false,
+);
 
 // ADD NEW BOOKS
 
@@ -107,31 +155,14 @@ newBookButton.addEventListener('click', (e) => {
   e.preventDefault();
 
   // Get object prop values
-
   const title = document.getElementById('title').value;
   const author = document.getElementById('author').value;
   const pagesString = document.getElementById('pages').value;
   const pages = parseFloat(pagesString);
   const readStatus = document.querySelector('input[name="read"]:checked').value;
-
-  // Add book to library
-
   addBookToLibrary(title, author, pages, readStatus);
-
-  // Remove current grid
-
-  while (list.firstChild) {
-    list.removeChild(list.firstChild);
-  }
-
-  // Write new grid
-
-  createBookCards(myLibrary);
+  gridRefresh(list);
 });
-
-// Display initial list of books at first load of site
-
-createBookCards(myLibrary);
 
 // NEW BOOK POP-UP BOX
 
@@ -161,14 +192,7 @@ list.addEventListener('click', (e) => {
       e.target.parentElement.parentElement.children,
     ).indexOf(e.target.parentElement);
     myLibrary.splice(index, 1);
-
-    // Remove current grid
-    while (list.firstChild) {
-      list.removeChild(list.firstChild);
-    }
-
-    // Write new grid
-    createBookCards(myLibrary);
+    gridRefresh(list);
   }
 });
 
@@ -181,25 +205,15 @@ const titleSortBtn = document.getElementById('title-sort');
 titleSortBtn.addEventListener('click', () => {
   myLibrary.sort((a, b) => (a.title > b.title ? 1 : -1));
   // Remove current grid
-  while (list.firstChild) {
-    list.removeChild(list.firstChild);
-  }
-  // Write new grid
-  createBookCards(myLibrary);
+  gridRefresh(list);
 });
 
 // Author first name sort
 
 const authorFirstSortBtn = document.getElementById('author-first-sort');
-
 authorFirstSortBtn.addEventListener('click', () => {
   myLibrary.sort((a, b) => (a.author > b.author ? 1 : -1));
-  // Remove current grid
-  while (list.firstChild) {
-    list.removeChild(list.firstChild);
-  }
-  // Write new grid
-  createBookCards(myLibrary);
+  gridRefresh(list);
 });
 
 // Author last name sort
@@ -210,7 +224,6 @@ authorLastSort.sort();
 // Read sort - a little different since we don't want to change original library
 
 const readSortBtn = document.getElementById('read-sort');
-
 readSortBtn.addEventListener('click', () => {
   const readYes = myLibrary.filter((book) => book.read === 'Yes');
   const readSortLibrary = [...readYes];
@@ -225,22 +238,15 @@ readSortBtn.addEventListener('click', () => {
 // Pages sort
 
 const pagesSortBtn = document.getElementById('pages-sort');
-
 pagesSortBtn.addEventListener('click', () => {
   myLibrary.sort((a, b) => (a.pages > b.pages ? 1 : -1));
-  // Remove current grid
-  while (list.firstChild) {
-    list.removeChild(list.firstChild);
-  }
-  // Write new grid
-  createBookCards(myLibrary);
+  gridRefresh(list);
 });
 
-// Total pages
+// TOTAL PAGE COUNT
 
 const readCountBtn = document.getElementById('read-count');
 const pagesReadFooter = document.getElementById('pages-read-total');
-
 readCountBtn.addEventListener('click', () => {
   // Remove current grid
   while (pagesReadFooter.firstChild) {
@@ -253,8 +259,11 @@ readCountBtn.addEventListener('click', () => {
     0,
   );
 
-  // Write new grid
+  // Write count
   const pagesReadNumber = document.createElement('p');
   pagesReadNumber.textContent = `You have read a total of ${totalPagesRead} pages!`;
   pagesReadFooter.appendChild(pagesReadNumber);
 });
+
+// Display initial list of books at first load of site
+createBookCards(myLibrary);
