@@ -82,8 +82,8 @@ function addReadDiv(book, bookCard) {
 
 // CREATE GRID OF CARDS
 
-function createBookCards() {
-  myLibrary.forEach((book) => {
+function createBookCards(books) {
+  books.forEach((book) => {
     const bookCard = newCard();
     removeBook(bookCard);
     addTitle(book, bookCard);
@@ -206,7 +206,7 @@ list.addEventListener('click', (e) => {
 const titleSortBtn = document.getElementById('title-sort');
 
 titleSortBtn.addEventListener('click', () => {
-  myLibrary.sort((a, b) => (a.title > b.title ? 1 : -1));
+  myLibrary.sort((a, b) => (a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1));
   // Remove current grid
   gridRefresh(list);
 });
@@ -215,7 +215,7 @@ titleSortBtn.addEventListener('click', () => {
 
 const authorFirstSortBtn = document.getElementById('author-first-sort');
 authorFirstSortBtn.addEventListener('click', () => {
-  myLibrary.sort((a, b) => (a.author > b.author ? 1 : -1));
+  myLibrary.sort((a, b) => (a.author.toLowerCase() > b.author.toLowerCase() ? 1 : -1));
   gridRefresh(list);
 });
 
@@ -228,7 +228,7 @@ authorLastSort.sort();
 
 const readSortBtn = document.getElementById('read-sort');
 readSortBtn.addEventListener('click', () => {
-  const readYes = myLibrary.filter((book) => book.read === 'Yes');
+  const readYes = myLibrary.filter((book) => book.read);
   const readSortLibrary = [...readYes];
   // Remove current grid
   while (list.firstChild) {
@@ -255,7 +255,7 @@ readCountBtn.addEventListener('click', () => {
   while (pagesReadFooter.firstChild) {
     pagesReadFooter.removeChild(pagesReadFooter.firstChild);
   }
-  const readYes = myLibrary.filter((book) => book.read === 'Yes');
+  const readYes = myLibrary.filter((book) => book.read === 'true');
   const readSortLibrary = [...readYes];
   const totalPagesRead = readSortLibrary.reduce(
     (total, book) => total + book.pages,
