@@ -43,7 +43,7 @@ right: 20px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
+  width: 350px;
   height: 300px;
   background-color: rgb(232, 250, 255);
   border: 1px solid gray;
@@ -66,6 +66,8 @@ right: 20px;
     cursor: pointer;
 }
 
+/* Add book pop-up content */
+
 .popup-header {
   display: flex;
   flex-direction: column;
@@ -81,6 +83,8 @@ right: 20px;
   font-style: italic;
  }
 
+ /* Add book form */
+
 form {
   display: grid;
   gap: 10px;
@@ -89,7 +93,21 @@ form {
   justify-items: center;
  }
 
- .error {
+form [type="text"],
+form [type="number"] {
+  all: unset;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 3px 7px;
+  width: 200px;
+  background-color: white;
+ }
+
+ form [type="number"] {
+  width: 60px;
+ }
+
+.error {
   border-color: red;
  }
 
@@ -102,7 +120,8 @@ form {
 }
 
 .filters > button:hover,
-#read-count:hover {
+#read-count:hover,
+#submit-button:hover {
   cursor: pointer;
   background-color: rgb(252, 255, 208);
 }

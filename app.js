@@ -152,11 +152,21 @@ function checkRadioRead() {
   return selectedValue;
 }
 
+// Error throws red border
+
 function addErrorStyling() {
   inputFields.forEach((input) => {
     if (!input.checkValidity()) {
-      input.classList.add('error');
+      input.style.borderColor = 'red';
     }
+  });
+}
+
+// Reset to black border
+
+function resetInputStyling() {
+  inputFields.forEach((input) => {
+    input.style.borderColor = 'black';
   });
 }
 
@@ -171,6 +181,7 @@ newBookButton.addEventListener('click', (e) => {
     const readStatus = checkRadioRead();
     addBookToLibrary(title, author, pages, readStatus);
     form.reset();
+    resetInputStyling();
     gridRefresh(list);
     e.preventDefault();
   }
