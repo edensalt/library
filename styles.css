@@ -83,7 +83,8 @@ right: 20px;
   margin: 20px;
 }
 
-.filters > button {
+.filters > button,
+#read-count {
   all: unset;
   border: 1px solid black;
   border-radius: 20px;
@@ -91,7 +92,9 @@ right: 20px;
   background-color: white;
 }
 
-.filters > button:hover {
+.filters > button:hover,
+#read-count:hover {
+  cursor: pointer;
   background-color: rgb(252, 255, 208);
 }
 
@@ -172,4 +175,11 @@ input[type="checkbox"]:hover,
 button:active,
 input[type="checkbox"]:active  {
   cursor: pointer;
+}
+
+.read-count-group {
+  display: grid;
+  grid-template-rows: repeat(3, 40px);
+  justify-items: center;
+  align-items: center;
 }

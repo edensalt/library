@@ -13,3 +13,4 @@ Example library for the <a href="https://www.theodinproject.com/lessons/node-pat
 ## Updates 
 - Add form validation
 - Update read filter to read, not read, or all
+- When a book is unchecked from read list, and you are on read filter, it resets. Fix this.
