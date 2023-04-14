@@ -34,7 +34,7 @@ width: 110px;
 align-items: center;
 text-align: center;
 border: 1px solid gray;
-
+margin: auto;
 }
 
 #add-book-btn:hover,
