@@ -170,14 +170,21 @@ function resetInputStyling() {
   });
 }
 
+function getPagesValue() {
+  let pagesString;
+  if (document.getElementById('pages').value === '') {
+    pagesString = 0;
+  } else (pagesString = parseFloat(document.getElementById('pages').value));
+  return pagesString;
+}
+
 newBookButton.addEventListener('click', (e) => {
   if (!form.checkValidity()) {
     addErrorStyling();
   } else {
     const title = document.getElementById('title').value;
     const author = document.getElementById('author').value;
-    const pagesString = document.getElementById('pages').value;
-    const pages = parseFloat(pagesString);
+    const pages = getPagesValue();
     const readStatus = checkRadioRead();
     addBookToLibrary(title, author, pages, readStatus);
     form.reset();
@@ -196,6 +203,7 @@ openPopup.addEventListener('click', () => {
 
 // Remove book pop-up
 closePopup.addEventListener('click', () => {
+  resetInputStyling();
   bookPopup.style.display = 'none';
 });
 
