@@ -7,7 +7,7 @@ Example library for the <a href="https://www.theodinproject.com/lessons/node-pat
 - Objects and object constructors
 - DOM manipulation and JS event listeners
 - JS arrays (sorting, calculations) and for loops
-- Forms (form validation adn styling)
+- Forms (form validation and styling)
 - CSS grid and positioning
 
 ## Updates 

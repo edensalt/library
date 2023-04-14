@@ -19,31 +19,32 @@
             <button id="read-sort">Sort by read</button>
         </div>
         <div id="add-book-popup">
-            <h2>Add a book</h2>
+            <div class="popup-header">
+                <h2>Add a book</h2>
+                <p><span aria-label="required">*</span> indicates required field</p>
+            </div>
             <div id="close-popup" aria-label="close out of pop-up">x</div>
             <form>
-                <div class="book-input">
-                    <div class="title">
-                        <label for="title">Title<span aria-label="required">*</span></label>
-                        <input type="text" name="title" id="title">
+                <div class="title">
+                    <label for="title">Title<span aria-label="required">*</span></label>
+                    <input type="text" name="title" id="title" required>
+                </div>
+                <div class="author">
+                    <label for="author">Author<span aria-label="required">*</span></label>
+                    <input type="text" name="author" id="author" required>
+                </div>
+                <div class="pages">
+                    <label for="pages">Page length</label>
+                    <input type="number" name="pages" id="pages" value="0">
+                </div>
+                <div class="read">
+                    <div class="read-yes">
+                        <input type="radio" id="read-yes" name="read" value='true'>
+                        <label for="read-yes">I have read this book</label>
                     </div>
-                    <div class="author">
-                        <label for="author">Author<span aria-label="required">*</span></label>
-                        <input type="text" name="author" id="author">
-                    </div>
-                    <div class="pages">
-                        <label for="pages">Page length</label>
-                        <input type="number" name="pages" id="pages">
-                    </div>
-                    <div class="read">
-                        <div class="read-yes">
-                            <input type="radio" id="read-yes" name="read" value='true'>
-                            <label for="read-yes">I have read this book</label>
-                        </div>
-                        <div class="read-no">
-                            <input type="radio" id="read-no" name="read" value='false' checked>
-                            <label for="read-no">I have not read this book</label>
-                        </div>
+                    <div class="read-no">
+                        <input type="radio" id="read-no" name="read" value='false' checked>
+                        <label for="read-no">I have not read this book</label>
                     </div>
                 </div>
                 <button id="submit-button" type="submit">Add book</button>

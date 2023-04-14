@@ -5,6 +5,7 @@ const form = document.querySelector('form');
 const newBookButton = document.getElementById('submit-button');
 const openPopup = document.getElementById('add-book-btn');
 const closePopup = document.getElementById('close-popup');
+const inputFields = document.querySelectorAll('input');
 
 // LIBRARY CARD COMPONENTS
 
@@ -151,23 +152,35 @@ function checkRadioRead() {
   return selectedValue;
 }
 
+function addErrorStyling() {
+  inputFields.forEach((input) => {
+    if (!input.checkValidity()) {
+      input.classList.add('error');
+    }
+  });
+}
+
 newBookButton.addEventListener('click', (e) => {
-  e.preventDefault();
-  const title = document.getElementById('title').value;
-  const author = document.getElementById('author').value;
-  const pagesString = document.getElementById('pages').value;
-  const pages = parseFloat(pagesString);
-  const readStatus = checkRadioRead();
-  addBookToLibrary(title, author, pages, readStatus);
-  form.reset();
-  gridRefresh(list);
+  if (!form.checkValidity()) {
+    addErrorStyling();
+  } else {
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+    const pagesString = document.getElementById('pages').value;
+    const pages = parseFloat(pagesString);
+    const readStatus = checkRadioRead();
+    addBookToLibrary(title, author, pages, readStatus);
+    form.reset();
+    gridRefresh(list);
+    e.preventDefault();
+  }
 });
 
 // NEW BOOK POP-UP BOX
 
 // Add book pop-up
 openPopup.addEventListener('click', () => {
-  bookPopup.style.display = 'block';
+  bookPopup.style.display = 'grid';
 });
 
 // Remove book pop-up

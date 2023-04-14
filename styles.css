@@ -37,6 +37,8 @@ right: 20px;
 
 #add-book-popup {
   display: none;
+  grid-template-rows: 1fr 4fr;
+  align-items: center;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -53,8 +55,8 @@ right: 20px;
 
 #close-popup {
     position: absolute;
-    top: 0;
-    right: 10px;
+    top: 5px;
+    right: 15px;
     font-size: 2rem;
     font-family: monospace;
     padding: 5px;
@@ -64,9 +66,45 @@ right: 20px;
     cursor: pointer;
 }
 
-.book-input > div {
-  position: relative;
-  margin-bottom: 15px;
+.popup-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center
+}
+
+.popup-header > h2 {
+ margin-bottom: 0;
+}
+
+.popup-header > p {
+  margin-top: 0.5rem;
+  font-style: italic;
+ }
+
+form {
+  display: grid;
+  gap: 10px;
+  grid-template-rows: 1fr 1fr 1fr 2fr 2fr;
+  align-items: center;
+  justify-items: center;
+ }
+
+ .error {
+  border-color: red;
+ }
+
+#submit-button {
+  all: unset;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 7px 12px;
+  background-color: white;
+}
+
+.filters > button:hover,
+#read-count:hover {
+  cursor: pointer;
+  background-color: rgb(252, 255, 208);
 }
 
 /* Filter buttons */
